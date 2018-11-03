@@ -1,15 +1,15 @@
 package br.com.b2w.services.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.StarWarsRepository;
 import br.com.b2w.services.interfaces.IService;
-import br.com.b2w.exceptions.NotFoundEntityException;
 
+@Service
 public class PlanetService implements IService<Planet>{
 
 	@Autowired

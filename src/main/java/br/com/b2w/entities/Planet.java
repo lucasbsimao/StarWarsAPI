@@ -1,7 +1,11 @@
 package br.com.b2w.entities;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(collection = "planets")
 public class Planet {
@@ -9,8 +13,16 @@ public class Planet {
 	@Id
 	public String id;
 	
+	@NotBlank(message = "Planet's name must be not null or empty")
+	@JsonProperty(required = true)
 	public String name;
+	
+	@NotBlank(message = "Planet's climate must not be null or empty")
+	@JsonProperty(required = true)
 	public String climate;
+	
+	@NotBlank(message = "Planet's terrain must not be null or empty")
+	@JsonProperty(required = true)
 	public String terrain;
 	
 	public Planet() {

@@ -12,7 +12,7 @@ public interface IService<T> {
 	/**
 	 * Create the entity
 	 * @param entity
-	 * @return 
+	 * @return The entity with an Id attached
 	 */
 	public T create(T entity);
 	
