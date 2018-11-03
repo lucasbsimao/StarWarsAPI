@@ -10,13 +10,13 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
 import br.com.b2w.entities.Planet;
-import br.com.b2w.repositories.StarWarsRepository;
+import br.com.b2w.repositories.GenericRepository;
 
 @SpringBootApplication
 public class StarwarsapiApplication implements CommandLineRunner{
 
 	@Autowired
-	private StarWarsRepository starWarsRepository;
+	private GenericRepository<Planet> starWarsRepository;
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(StarwarsapiApplication.class);
 	
@@ -42,6 +42,8 @@ public class StarwarsapiApplication implements CommandLineRunner{
 		for (Planet planet : starWarsRepository.findAll()) {
 			LOGGER.info(planet.toString());
 		}
+		
+		starWarsRepository.deleteAll();
 		
 		LOGGER.info("Planets saved with success!");
 

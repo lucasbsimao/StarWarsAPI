@@ -6,8 +6,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.b2w.entities.Planet;
 
-@Service
-public interface IService<T> {
+public interface IGenericService<T> {
 	
 	/**
 	 * Create the entity
@@ -21,14 +20,7 @@ public interface IService<T> {
 	 * @param id
 	 */
 	public void delete(String id);
-	
-	/**
-	 * Find the entity that matches the name parameter
-	 * @param name
-	 * @return The entity with its values
-	 */
-	public T findByName(String name);
-	
+
 	/**
 	 * Get all data that corresponds to its type
 	 * @return A list of entities
