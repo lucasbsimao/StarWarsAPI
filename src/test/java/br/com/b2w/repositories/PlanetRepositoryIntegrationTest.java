@@ -38,8 +38,11 @@ public class PlanetRepositoryIntegrationTest {
 
     @Test
     public void whenNotFoundName_thenReturnNull() {
-    	Planet planet1 = new Planet("Tet", "Test", "Test");
-        assertNull(planet1);
+    	Planet planet1 = new Planet("asdf", "Test", "Test");
+    	
+    	List<Planet> planet = planetRepository.findByName(planet1.getName());
+    	
+        assertThat(planet).isEmpty();
     }
 
     @Test
@@ -67,6 +70,6 @@ public class PlanetRepositoryIntegrationTest {
 
         List<Planet> allEmployees = planetRepository.findAll();
 
-        assertThat(allEmployees).hasSize(2);
+        assertThat(allEmployees).isNotNull();
     }
 }

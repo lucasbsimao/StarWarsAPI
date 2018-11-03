@@ -2,6 +2,8 @@ package br.com.b2w.services.interfaces;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Service;
 
 import br.com.b2w.entities.Planet;
@@ -13,7 +15,7 @@ public interface IGenericService<T> {
 	 * @param entity
 	 * @return The entity with an Id attached
 	 */
-	public T create(T entity);
+	public T create(@Valid T entity);
 	
 	/**
 	 * Delete the entity that matches the id parameter

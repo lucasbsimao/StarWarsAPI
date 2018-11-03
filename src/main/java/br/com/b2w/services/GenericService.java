@@ -2,19 +2,23 @@ package br.com.b2w.services;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 
 import br.com.b2w.entities.GenericEntity;
 import br.com.b2w.repositories.GenericRepository;
 import br.com.b2w.services.interfaces.IGenericService;
 
+@Validated
 public class GenericService<T extends GenericEntity, R extends GenericRepository<T>> implements IGenericService<T>{
 	
 	@Autowired
 	R starWarsRepository;
 	
 	@Override
-	public T create(T entity) {
+	public T create(@Valid T entity) {
 		return starWarsRepository.save(entity);
 	}
 

@@ -7,10 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.ConstraintViolationException;
+
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
@@ -30,8 +35,11 @@ public class PlanetServiceIntegrationTest {
 	@Qualifier("planetService")
 	private IPlanetService planetService;
 	
-	@MockBean
+	@Mock
 	private PlanetRepository planetRepository;
+	
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
 	
 	@Before
 	public void setUp() {
@@ -71,6 +79,14 @@ public class PlanetServiceIntegrationTest {
         
         planetService.delete(planet.getId());
     }
+	
+	@Test
+	public void testCreateWithNullProperties() {
+		Planet planet = new Planet(null, "", "");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetService.create(planet);
+	}
 
     @Test
     public void whenIdInvalid_thenReturnPlanetNull() {
@@ -82,6 +98,9 @@ public class PlanetServiceIntegrationTest {
     public void givenPlanet_whenFindById_thenReturnPlanetNotNull() {
     	Planet planet = new Planet("Test", "Test", "Test");
     	planet = planetService.create(planet);
+    	
+    	System.out.println(planet.toString());
+    	
         planet = planetService.findById(planet.getId());
         assertNotNull(planet);
         
