@@ -1,4 +1,4 @@
-package br.com.b2w.repository;
+package br.com.b2w.repositories;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.repository.MongoRepository;

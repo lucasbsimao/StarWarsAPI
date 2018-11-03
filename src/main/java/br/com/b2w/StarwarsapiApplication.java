@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 
 import br.com.b2w.entities.Planet;
-import br.com.b2w.repository.StarWarsRepository;
+import br.com.b2w.repositories.StarWarsRepository;
 
 @SpringBootApplication
 public class StarwarsapiApplication implements CommandLineRunner{
@@ -26,7 +26,6 @@ public class StarwarsapiApplication implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-
 		LOGGER.info("Initializing MongoDB with Star Wars planets...");
 		starWarsRepository.deleteAll();
 
