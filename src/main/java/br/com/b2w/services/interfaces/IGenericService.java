@@ -4,10 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.stereotype.Service;
-
-import br.com.b2w.entities.Planet;
-
 public interface IGenericService<T> {
 	
 	/**

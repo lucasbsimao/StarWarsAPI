@@ -19,7 +19,7 @@ public class GenericService<T extends GenericEntity, R extends GenericRepository
 	
 	@Override
 	public T create(@Valid T entity) {
-		return starWarsRepository.save(entity);
+		return starWarsRepository.insert(entity);
 	}
 
 	@Override
