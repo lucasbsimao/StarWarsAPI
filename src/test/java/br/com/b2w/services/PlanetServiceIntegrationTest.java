@@ -79,8 +79,48 @@ public class PlanetServiceIntegrationTest {
     }
 	
 	@Test
-	public void givenPlanet_whenNameIsNull_ThrowValidationExceptionTest() {
-		Planet planet = new Planet(null, "", "");
+	public void whenNameIsNull_ThrowValidationExceptionTest() {
+		Planet planet = new Planet(null, "Test", "Test");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetService.create(planet);
+	}
+	
+	@Test
+	public void whenClimateIsNull_ThrowValidationExceptionTest() {
+		Planet planet = new Planet("Test", null, "Test");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetService.create(planet);
+	}
+	
+	@Test
+	public void whenTerrainIsNull_ThrowValidationExceptionTest() {
+		Planet planet = new Planet("Test", "Test", null);
+		
+		exception.expect(ConstraintViolationException.class);
+		planetService.create(planet);
+	}
+	
+	@Test
+	public void whenNameIsBlankSpace_ThrowValidationExceptionTest() {
+		Planet planet = new Planet(" ", "Test", "Test");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetService.create(planet);
+	}
+	
+	@Test
+	public void whenClimateIsBlankSpace_ThrowValidationExceptionTest() {
+		Planet planet = new Planet("Test", " ", "Test");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetService.create(planet);
+	}
+	
+	@Test
+	public void whenTerrainIsBlankSpace_ThrowValidationExceptionTest() {
+		Planet planet = new Planet("Test", "Test", " ");
 		
 		exception.expect(ConstraintViolationException.class);
 		planetService.create(planet);

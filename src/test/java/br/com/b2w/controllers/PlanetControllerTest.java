@@ -35,24 +35,24 @@ public class PlanetControllerTest {
 	@Autowired
 	private MockMvc mockMvc;
 	
-	public void testGetEmployee() throws Exception {
-		Planet planet = new Planet("Alderaan", "temperate", "grasslands, mountains");
-		when(planetService.findById(any(String.class))).thenReturn(planet);
-
-		// execute
-		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders.get(URL + "{id}", new Long(1)).accept(MediaType.APPLICATION_JSON_UTF8))
-				.andReturn();
-
-		// verify
-		int status = result.getResponse().getStatus();
-		assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
-
-		// verify that service method was called once
-		verify(empService).getById(any(Long.class));
-
-		Employee resultEmployee = TestUtils.jsonToObject(result.getResponse().getContentAsString(), Employee.class);
-		assertNotNull(resultEmployee);
-		assertEquals(1l, resultEmployee.getId().longValue());
-	}
+//	public void testGetEmployee() throws Exception {
+//		Planet planet = new Planet("Alderaan", "temperate", "grasslands, mountains");
+//		when(planetService.findById(any(String.class))).thenReturn(planet);
+//
+//		// execute
+//		MvcResult result = mockMvc
+//				.perform(MockMvcRequestBuilders.get(URL + "{id}", new Long(1)).accept(MediaType.APPLICATION_JSON_UTF8))
+//				.andReturn();
+//
+//		// verify
+//		int status = result.getResponse().getStatus();
+//		assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
+//
+//		// verify that service method was called once
+//		verify(empService).getById(any(Long.class));
+//
+//		Employee resultEmployee = TestUtils.jsonToObject(result.getResponse().getContentAsString(), Employee.class);
+//		assertNotNull(resultEmployee);
+//		assertEquals(1l, resultEmployee.getId().longValue());
+//	}
 }
