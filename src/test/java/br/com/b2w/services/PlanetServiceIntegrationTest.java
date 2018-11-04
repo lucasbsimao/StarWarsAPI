@@ -70,7 +70,7 @@ public class PlanetServiceIntegrationTest {
 	}
 	
 	@Test
-    public void givenPlanet_whenSave_thenReturnIdNotNull() {
+    public void givenPlanet_whenSave_thenReturnIdNotNullTest() {
         Planet planet = new Planet("Test", "Test", "Test");
         planet = planetService.create(planet);
         assertNotNull(planet.getId());
@@ -79,7 +79,7 @@ public class PlanetServiceIntegrationTest {
     }
 	
 	@Test
-	public void testCreateWithNullProperties() {
+	public void givenPlanet_whenNameIsNull_ThrowValidationExceptionTest() {
 		Planet planet = new Planet(null, "", "");
 		
 		exception.expect(ConstraintViolationException.class);
@@ -87,13 +87,13 @@ public class PlanetServiceIntegrationTest {
 	}
 
     @Test
-    public void whenIdInvalid_thenReturnPlanetNull() {
+    public void whenIdInvalid_thenReturnPlanetNullTest() {
         Planet planet = planetService.findById("");
         assertNull(planet);
     }
     
     @Test
-    public void givenPlanet_whenFindById_thenReturnPlanetNotNull() {
+    public void givenPlanet_whenFindById_thenReturnPlanetNotNullTest() {
     	Planet planet = new Planet("Test", "Test", "Test");
     	planet = planetService.create(planet);
     	
@@ -106,7 +106,7 @@ public class PlanetServiceIntegrationTest {
     }
     
     @Test
-    public void givenPlanet_whenFindByName_thenReturnPlanetNotNullAndNameEqualsObject() {
+    public void givenPlanet_whenFindByName_thenReturnPlanetNotNullAndNameEqualsObjectTest() {
     	Planet planet1 = new Planet("Test", "Test", "Test");
     	Planet planet = planetService.create(planet1);
     	
@@ -119,7 +119,7 @@ public class PlanetServiceIntegrationTest {
     }
 
     @Test
-    public void givenListOfPlanets_when() {
+    public void givenListOfPlanets_whenGetAll_thenReturnNotEmptyListTest() {
     	Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
     	Planet planet2 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
     	planet1 = planetService.create(planet1);
