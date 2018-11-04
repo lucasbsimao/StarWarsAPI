@@ -1,4 +1,4 @@
-package br.com.b2w.controllers.impl;
+package br.com.b2w.controllers;
 
 import java.util.List;
 

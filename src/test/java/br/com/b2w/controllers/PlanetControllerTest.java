@@ -19,7 +19,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import br.com.b2w.controllers.impl.PlanetControllerImpl;
+import br.com.b2w.controllers.PlanetControllerImpl;
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.PlanetRepository;
 import br.com.b2w.services.interfaces.IPlanetService;

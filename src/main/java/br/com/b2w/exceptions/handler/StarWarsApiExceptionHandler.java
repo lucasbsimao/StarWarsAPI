@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.b2w.exceptions.NotCreatedEntityException;
 import br.com.b2w.exceptions.NotFoundEntityException;
 import br.com.b2w.exceptions.response.ErrorDetail;
 
@@ -28,7 +29,7 @@ public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 		errorDetails.setTimestamp(new Date());
 		errorDetails.setError(ex.getMessage());
 		errorDetails.setMessage(request.getDescription(false));
-		errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.ordinal());
+		errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 		errorDetails.setPath(request.getContextPath());
 		return new ResponseEntity<Object>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -37,9 +38,20 @@ public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 	public final ResponseEntity<Object> handleNotFoundException(NotFoundEntityException ex, WebRequest request) {
 		ErrorDetail errorDetails = new ErrorDetail();
 		errorDetails.setTimestamp(new Date());
-		errorDetails.setError("The entity was not found.");
+		errorDetails.setError("Not found exception");
 		errorDetails.setMessage(ex.getMessage());
-		errorDetails.setStatus(HttpStatus.NOT_FOUND.ordinal());
+		errorDetails.setStatus(HttpStatus.NOT_FOUND.value());
+		errorDetails.setPath(request.getContextPath());
+		return new ResponseEntity<Object>(errorDetails, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(NotCreatedEntityException.class)
+	public final ResponseEntity<Object> handleNotCreatedEntityException(NotCreatedEntityException ex, WebRequest request) {
+		ErrorDetail errorDetails = new ErrorDetail();
+		errorDetails.setTimestamp(new Date());
+		errorDetails.setError("Server severity error");
+		errorDetails.setMessage(ex.getMessage());
+		errorDetails.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
 		errorDetails.setPath(request.getContextPath());
 		return new ResponseEntity<Object>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -60,7 +72,7 @@ public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 			errorDetail.setTimestamp(new Date());
 			errorDetail.setMessage(error.getDefaultMessage());
 			errorDetail.setPath(path);
-			errorDetail.setStatus(HttpStatus.BAD_REQUEST.ordinal());
+			errorDetail.setStatus(HttpStatus.BAD_REQUEST.value());
 			errorDetails.add(errorDetail);
 		}
 		

@@ -1,4 +1,4 @@
-package br.com.b2w.controllers.impl;
+package br.com.b2w.controllers;
 
 import java.util.List;
 
@@ -57,7 +57,7 @@ public abstract class GenericController<T extends GenericEntity, S extends IGene
 		T bdEntity = genericService.create(entity);
 		
 		if(bdEntity.getId() == null || bdEntity.getId().equals("")) {
-			throw new NotCreatedEntityException("No entity in database yet.");
+			throw new NotCreatedEntityException("It was not possible to create entity. Please contact us!");
 		}
 		
 		return new ResponseEntity<T>(bdEntity,HttpStatus.OK);
