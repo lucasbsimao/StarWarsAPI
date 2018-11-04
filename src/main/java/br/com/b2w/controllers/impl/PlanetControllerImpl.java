@@ -14,14 +14,14 @@ import br.com.b2w.services.interfaces.IPlanetService;
 
 @RestController
 @RequestMapping(value="/planets")
-public class PlanetController extends GenericController<Planet, IPlanetService>{
+public class PlanetControllerImpl extends GenericController<Planet, IPlanetService>{
 	
 	@GetMapping(value = "/getByName")
 	public ResponseEntity<List<Planet>> getByName(@RequestParam(value = "name") String name) {
 		List<Planet> listPlanets = genericService.findByName(name);
 		
 		if(listPlanets == null)
-			return new ResponseEntity<List<Planet>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<List<Planet>>(HttpStatus.NOT_FOUND);
 		
 		return new ResponseEntity<List<Planet>>(listPlanets, HttpStatus.OK);
 	}

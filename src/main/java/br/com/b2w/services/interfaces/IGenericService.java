@@ -3,6 +3,7 @@ package br.com.b2w.services.interfaces;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 public interface IGenericService<T> {
 	
@@ -15,9 +16,9 @@ public interface IGenericService<T> {
 	
 	/**
 	 * Delete the entity that matches the id parameter
-	 * @param id
+	 * @param id must be not blank
 	 */
-	public void delete(String id);
+	public void delete(@NotBlank String id);
 
 	/**
 	 * Get all data that corresponds to its type
@@ -27,8 +28,8 @@ public interface IGenericService<T> {
 	
 	/**
 	 * Find the entity that matches the id parameter
-	 * @param id
+	 * @param id must be not blank
 	 * @return The entity with its values
 	 */
-	public T findById(String id); 
+	public T findById(@NotBlank String id); 
 }

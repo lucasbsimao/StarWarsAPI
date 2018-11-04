@@ -67,6 +67,30 @@ public class PlanetRepositoryTest {
 		exception.expect(ConstraintViolationException.class);
 		planetRepository.save(planet);
 	}
+	
+	@Test
+	public void whenNameIsBlankSpace_ThrowValidationExceptionTest() {
+		Planet planet = new Planet(" ", "Test", "Test");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetRepository.save(planet);
+	}
+	
+	@Test
+	public void whenClimateIsBlankSpace_ThrowValidationExceptionTest() {
+		Planet planet = new Planet("Test", " ", "Test");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetRepository.save(planet);
+	}
+	
+	@Test
+	public void whenTerrainIsBlankSpace_ThrowValidationExceptionTest() {
+		Planet planet = new Planet("Test", "Test", " ");
+		
+		exception.expect(ConstraintViolationException.class);
+		planetRepository.save(planet);
+	}
 
     @Test
     public void whenNotFoundName_thenReturnNullTest() {

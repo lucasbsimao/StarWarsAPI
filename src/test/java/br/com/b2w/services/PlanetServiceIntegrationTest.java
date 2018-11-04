@@ -137,8 +137,6 @@ public class PlanetServiceIntegrationTest {
     	Planet planet = new Planet("Test", "Test", "Test");
     	planet = planetService.create(planet);
     	
-    	System.out.println(planet.toString());
-    	
         planet = planetService.findById(planet.getId());
         assertNotNull(planet);
         

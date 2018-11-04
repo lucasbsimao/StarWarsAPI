@@ -3,6 +3,7 @@ package br.com.b2w.services;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,7 @@ public class GenericService<T extends GenericEntity, R extends GenericRepository
 	}
 
 	@Override
-	public void delete(String id) {
+	public void delete(@NotBlank String id) {
 		starWarsRepository.deleteById(id);
 	}
 	
@@ -33,7 +34,7 @@ public class GenericService<T extends GenericEntity, R extends GenericRepository
 	}
 
 	@Override
-	public T findById(String id) {
+	public T findById(@NotBlank String id) {
 		T entity = starWarsRepository.findById(id).orElse(null);
 		return entity;
 	}
