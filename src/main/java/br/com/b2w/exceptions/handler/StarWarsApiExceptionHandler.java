@@ -68,7 +68,7 @@ public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 		List<ErrorDetail> errorDetails = new ArrayList<>();
 		for(ObjectError error : listErrors) {
 			ErrorDetail errorDetail = new ErrorDetail();
-			errorDetail.setError("Field is not passing on validation.");
+			errorDetail.setError("Validation error");
 			errorDetail.setTimestamp(new Date());
 			errorDetail.setMessage(error.getDefaultMessage());
 			errorDetail.setPath(path);

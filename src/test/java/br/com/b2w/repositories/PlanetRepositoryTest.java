@@ -10,6 +10,7 @@ import javax.validation.ConstraintViolationException;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class PlanetRepositoryTest {
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 	
+	@BeforeEach
+	public void setup() {
+		planetRepository.deleteAll();
+	}
+	
 	@AfterEach
 	public void tearDownEach() {
 		planetRepository.deleteAll();
@@ -43,54 +49,6 @@ public class PlanetRepositoryTest {
         List<Planet> results = planetRepository.findByName(planet1.getName());
         assertEquals(results.get(0).getName(),planet1.getName());
     }
-	
-	@Test
-	public void whenNameIsNull_ThrowValidationExceptionTest() {
-		Planet planet = new Planet(null, "Test", "Test");
-		
-		exception.expect(ConstraintViolationException.class);
-		planetRepository.save(planet);
-	}
-	
-	@Test
-	public void whenClimateIsNull_ThrowValidationExceptionTest() {
-		Planet planet = new Planet("Test", null, "Test");
-		
-		exception.expect(ConstraintViolationException.class);
-		planetRepository.save(planet);
-	}
-	
-	@Test
-	public void whenTerrainIsNull_ThrowValidationExceptionTest() {
-		Planet planet = new Planet("Test", "Test", null);
-		
-		exception.expect(ConstraintViolationException.class);
-		planetRepository.save(planet);
-	}
-	
-	@Test
-	public void whenNameIsBlankSpace_ThrowValidationExceptionTest() {
-		Planet planet = new Planet(" ", "Test", "Test");
-		
-		exception.expect(ConstraintViolationException.class);
-		planetRepository.save(planet);
-	}
-	
-	@Test
-	public void whenClimateIsBlankSpace_ThrowValidationExceptionTest() {
-		Planet planet = new Planet("Test", " ", "Test");
-		
-		exception.expect(ConstraintViolationException.class);
-		planetRepository.save(planet);
-	}
-	
-	@Test
-	public void whenTerrainIsBlankSpace_ThrowValidationExceptionTest() {
-		Planet planet = new Planet("Test", "Test", " ");
-		
-		exception.expect(ConstraintViolationException.class);
-		planetRepository.save(planet);
-	}
 
     @Test
     public void whenNotFoundName_thenReturnNullTest() {
@@ -126,6 +84,7 @@ public class PlanetRepositoryTest {
 
     @Test
     public void givenListOfPlanets_whenFindAll_thenReturnListOfPlanetsTest() {
+    	planetRepository.deleteAll();
     	Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
 		Planet planet2 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
 

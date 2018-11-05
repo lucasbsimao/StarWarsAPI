@@ -2,26 +2,31 @@ package br.com.b2w.entities;
 
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 @Document(collection = "planets")
-public class Planet extends GenericEntity{
+public class Planet implements IGenericEntity{
 
 	private static final long serialVersionUID = 1L;
+	
+	@Id
+	private String id;
 
 	@NotBlank(message = "Planet's name must be not null or empty")
 	@JsonProperty(required = true)
-	public String name;
+	private String name;
 	
 	@NotBlank(message = "Planet's climate must not be null or empty")
 	@JsonProperty(required = true)
-	public String climate;
+	private String climate;
 	
 	@NotBlank(message = "Planet's terrain must not be null or empty")
 	@JsonProperty(required = true)
-	public String terrain;
+	private String terrain;
 	
 	public Planet() {
 		super();
@@ -31,6 +36,14 @@ public class Planet extends GenericEntity{
 		this.name = name;
 		this.climate = climate;
 		this.terrain = terrain;
+	}
+	
+	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {

@@ -19,19 +19,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.b2w.controllers.interfaces.IGenericController;
-import br.com.b2w.entities.GenericEntity;
+import br.com.b2w.entities.IGenericEntity;
 import br.com.b2w.exceptions.NotCreatedEntityException;
 import br.com.b2w.exceptions.NotFoundEntityException;
 import br.com.b2w.services.interfaces.IGenericService;
 
-public abstract class GenericController<T extends GenericEntity, S extends IGenericService<T>> implements IGenericController{
+public abstract class GenericController<T extends IGenericEntity, S extends IGenericService<T>>{
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(GenericController.class);
 	
 	@Autowired
 	protected S genericService;
 	
-	@GetMapping(value = "/{id}")
 	public ResponseEntity<T> getById(@PathVariable(value = "id") String id) {
 		T entity = genericService.findById(id);
 		
@@ -40,8 +39,7 @@ public abstract class GenericController<T extends GenericEntity, S extends IGene
 		
 		return new ResponseEntity<T>(entity,HttpStatus.OK);
 	}
-	
-	@GetMapping
+
 	public ResponseEntity<List<T>> getAll() {
 		
 		List<T> listEntity = genericService.getAll();
@@ -51,27 +49,23 @@ public abstract class GenericController<T extends GenericEntity, S extends IGene
 		
 		return new ResponseEntity<List<T>>(listEntity,HttpStatus.OK);
 	}
-	
-	@PostMapping
+
 	public ResponseEntity<T> create(@Valid @RequestBody T entity) {
 		T bdEntity = genericService.create(entity);
 		
-		if(bdEntity.getId() == null || bdEntity.getId().equals("")) {
+		if(bdEntity == null || bdEntity.getId() == null || bdEntity.getId().equals("")) {
 			throw new NotCreatedEntityException("It was not possible to create entity. Please contact us!");
 		}
 		
 		return new ResponseEntity<T>(bdEntity,HttpStatus.OK);
 	}
-	
-	@DeleteMapping(value = "/{id}")
+
 	public ResponseEntity<Void> delete(@PathVariable(value = "id") String id) {
 		T entity = genericService.findById(id);
 		
 		if(entity == null)
 			throw new NotFoundEntityException("Entity of id " + id + " was not in database.");
 		else
-			return new ResponseEntity<Void>(HttpStatus.GONE);
+			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 	}
-	
-	
 }

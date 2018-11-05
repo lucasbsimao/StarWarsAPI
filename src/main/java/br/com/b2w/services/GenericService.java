@@ -8,12 +8,12 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.b2w.entities.GenericEntity;
+import br.com.b2w.entities.IGenericEntity;
 import br.com.b2w.repositories.GenericRepository;
 import br.com.b2w.services.interfaces.IGenericService;
 
 @Validated
-public class GenericService<T extends GenericEntity, R extends GenericRepository<T>> implements IGenericService<T>{
+public class GenericService<T extends IGenericEntity, R extends GenericRepository<T>> implements IGenericService<T>{
 	
 	@Autowired
 	R starWarsRepository;

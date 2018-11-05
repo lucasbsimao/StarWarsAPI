@@ -128,7 +128,7 @@ public class PlanetServiceIntegrationTest {
 
     @Test
     public void whenIdInvalid_thenReturnPlanetNullTest() {
-        Planet planet = planetService.findById("");
+        Planet planet = planetService.findById("asdf1234");
         assertNull(planet);
     }
     
