@@ -1,5 +1,6 @@
 package br.com.b2w.services;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
@@ -19,7 +20,9 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.mockito.ArgumentMatchers;
 
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.PlanetRepository;
@@ -33,49 +36,23 @@ public class PlanetServiceIntegrationTest {
 	@Qualifier("planetService")
 	private IPlanetService planetService;
 	
-	@Mock
+	@MockBean
 	private PlanetRepository planetRepository;
 	
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 	
-	@Before
-	public void setUp() {
-		Planet planet = new Planet("Alderaan", "temperate", "grasslands, mountains");
-	    planet.setId("asdf1234");
-	    
-	    Planet planet1 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
-	    
-	    List<Planet> listPlanets = new ArrayList<Planet>();
-	    listPlanets.add(planet);
-	 
-	    when(planetRepository.findByName(planet.getName())).thenReturn(listPlanets);
-	    
-	    listPlanets.clear();
-	    listPlanets.add(planet1);
-	    
-	    when(planetRepository.findByName(planet1.getName())).thenReturn(listPlanets);
-	    
-	    listPlanets.add(planet);
-	    
-	    when(planetRepository.findByName("return_null")).thenReturn(null);
-        when(planetRepository.findById(planet.getId())).thenReturn(Optional.of(planet));
-        when(planetRepository.findAll()).thenReturn(listPlanets);
-        when(planetRepository.findById("-100")).thenReturn(Optional.empty());
-	}
-	
-	@After
-	public void tearDown() {
-		planetRepository.deleteAll();
-	}
-	
 	@Test
     public void givenPlanet_whenSave_thenReturnIdNotNullTest() {
         Planet planet = new Planet("Test", "Test", "Test");
-        planet = planetService.create(planet);
-        assertNotNull(planet.getId());
+        Planet planet2 = new Planet("Test", "Test", "Test");
+        planet2.setId("1");
+
+        when(planetRepository.save(planet)).thenReturn(planet2);
         
-        planetService.delete(planet.getId());
+        Planet planet3 = planetService.create(planet);
+        
+        assertNotNull(planet3.getId());
     }
 	
 	@Test
@@ -135,35 +112,47 @@ public class PlanetServiceIntegrationTest {
     @Test
     public void givenPlanet_whenFindById_thenReturnPlanetNotNullTest() {
     	Planet planet = new Planet("Test", "Test", "Test");
-    	planet = planetService.create(planet);
+    	planet.setId("1");
     	
-        planet = planetService.findById(planet.getId());
-        assertNotNull(planet);
-        
-        planetService.delete(planet.getId());
+    	when(planetRepository.findById(planet.getId())).thenReturn(Optional.of(planet));
+    	
+        Planet result = planetService.findById(planet.getId());
+        assertNotNull(result);
     }
     
     @Test
     public void givenPlanet_whenFindByName_thenReturnPlanetNotNullAndNameEqualsObjectTest() {
     	Planet planet1 = new Planet("Test", "Test", "Test");
-    	Planet planet = planetService.create(planet1);
     	
-        List<Planet> results = planetService.findByName(planet.getName());
+    	List<Planet> listaPlanetas = new ArrayList<>();
+    	listaPlanetas.add(planet1);
+    	
+    	when(planetRepository.findByName(planet1.getName())).thenReturn(listaPlanetas);
+    	
+        List<Planet> results = planetService.findByName(planet1.getName());
         
-        assertNotNull(planet);
+        assertNotNull(results);
         assertEquals(results.get(0).getName(), planet1.getName());
-        
-        planetService.delete(planet.getId());
+        assertEquals(results.get(0).getClimate(), planet1.getClimate());
+        assertEquals(results.get(0).getTerrain(), planet1.getTerrain());
     }
 
     @Test
     public void givenListOfPlanets_whenGetAll_thenReturnNotEmptyListTest() {
-    	Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
-    	Planet planet2 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
-    	planet1 = planetService.create(planet1);
-    	planet2 = planetService.create(planet2);
-		
-		List<Planet> listPlanets = planetService.getAll();
-		assertEquals(listPlanets.isEmpty(), false);
+    	Planet planet3 = new Planet("Alderaan", "temperate", "grasslands");
+    	planet3.setId("1");
+    	Planet planet4 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
+    	planet4.setId("2");
+    	
+    	List<Planet> listPlanets = new ArrayList<>();
+    	listPlanets.add(planet3);
+    	listPlanets.add(planet4);
+    	
+    	when(planetRepository.findAll()).thenReturn(listPlanets);
+        
+		List<Planet> allPlanets = planetService.getAll();
+		assertThat(allPlanets).hasSize(2);
+        assertThat(allPlanets.get(0).equals(planet3));
+        assertThat(allPlanets.get(1).equals(planet4));
     }
 }

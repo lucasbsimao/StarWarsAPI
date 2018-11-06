@@ -16,7 +16,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.b2w.exceptions.NotCreatedEntityException;
 import br.com.b2w.exceptions.NotFoundEntityException;
-import br.com.b2w.exceptions.response.ErrorDetail;
+import br.com.b2w.responses.ErrorResponse;
 
 import org.springframework.validation.ObjectError;
 
@@ -25,7 +25,7 @@ import org.springframework.validation.ObjectError;
 public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 	@ExceptionHandler(Exception.class)
 	public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-		ErrorDetail errorDetails = new ErrorDetail();
+		ErrorResponse errorDetails = new ErrorResponse();
 		errorDetails.setTimestamp(new Date());
 		errorDetails.setError(ex.getMessage());
 		errorDetails.setMessage(request.getDescription(false));
@@ -36,7 +36,7 @@ public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(NotFoundEntityException.class)
 	public final ResponseEntity<Object> handleNotFoundException(NotFoundEntityException ex, WebRequest request) {
-		ErrorDetail errorDetails = new ErrorDetail();
+		ErrorResponse errorDetails = new ErrorResponse();
 		errorDetails.setTimestamp(new Date());
 		errorDetails.setError("Not found exception");
 		errorDetails.setMessage(ex.getMessage());
@@ -47,7 +47,7 @@ public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 	
 	@ExceptionHandler(NotCreatedEntityException.class)
 	public final ResponseEntity<Object> handleNotCreatedEntityException(NotCreatedEntityException ex, WebRequest request) {
-		ErrorDetail errorDetails = new ErrorDetail();
+		ErrorResponse errorDetails = new ErrorResponse();
 		errorDetails.setTimestamp(new Date());
 		errorDetails.setError("Server severity error");
 		errorDetails.setMessage(ex.getMessage());
@@ -60,14 +60,14 @@ public class StarWarsApiExceptionHandler extends ResponseEntityExceptionHandler{
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		
-		List<ErrorDetail> errorDetails = this.createValidatedListResponse(request.getContextPath(),ex.getBindingResult().getAllErrors());
+		List<ErrorResponse> errorDetails = this.createValidatedListResponse(request.getContextPath(),ex.getBindingResult().getAllErrors());
 		return new ResponseEntity<Object>(errorDetails, HttpStatus.BAD_REQUEST);
 	}
 	
-	private List<ErrorDetail> createValidatedListResponse(String path, List<ObjectError> listErrors){
-		List<ErrorDetail> errorDetails = new ArrayList<>();
+	private List<ErrorResponse> createValidatedListResponse(String path, List<ObjectError> listErrors){
+		List<ErrorResponse> errorDetails = new ArrayList<>();
 		for(ObjectError error : listErrors) {
-			ErrorDetail errorDetail = new ErrorDetail();
+			ErrorResponse errorDetail = new ErrorResponse();
 			errorDetail.setError("Validation error");
 			errorDetail.setTimestamp(new Date());
 			errorDetail.setMessage(error.getDefaultMessage());

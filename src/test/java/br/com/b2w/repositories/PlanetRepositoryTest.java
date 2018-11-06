@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
+import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
@@ -31,13 +32,8 @@ public class PlanetRepositoryTest {
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 	
-	@BeforeEach
-	public void setup() {
-		planetRepository.deleteAll();
-	}
-	
-	@AfterEach
-	public void tearDownEach() {
+	@After
+	public void tearDown() {
 		planetRepository.deleteAll();
 	}
 	
@@ -60,12 +56,14 @@ public class PlanetRepositoryTest {
     }
 
     @Test
-    public void whenFindById_thenReturnPlanetWithSameObjectNameTest() {
+    public void whenFindById_thenReturnPlanetWithSamePropertiesTest() {
     	Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
     	planet1 = planetRepository.save(planet1);
 
         Planet planet2 = planetRepository.findById(planet1.getId()).orElse(null);
         assertEquals(planet2.getName(),planet1.getName());
+        assertEquals(planet2.getClimate(),planet1.getClimate());
+        assertEquals(planet2.getTerrain(),planet1.getTerrain());
     }
     
     @Test
@@ -85,15 +83,20 @@ public class PlanetRepositoryTest {
     @Test
     public void givenListOfPlanets_whenFindAll_thenReturnListOfPlanetsTest() {
     	planetRepository.deleteAll();
+    	
     	Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
 		Planet planet2 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
 
-        planetRepository.save(planet1);
-        planetRepository.save(planet2);
+        planet1 = planetRepository.save(planet1);
+        planet2 = planetRepository.save(planet2);
 
-        List<Planet> allEmployees = planetRepository.findAll();
+        List<Planet> allPlanets = planetRepository.findAll();
 
-        assertThat(allEmployees).hasSize(2);
+        assertThat(allPlanets).hasSize(2);
+        assertThat(allPlanets.get(0).getId()).isNotNull();
+        assertThat(allPlanets.get(0).equals(planet1));
+        assertThat(allPlanets.get(1).getId()).isNotNull();
+        assertThat(allPlanets.get(1).equals(planet2));
     }
     
     

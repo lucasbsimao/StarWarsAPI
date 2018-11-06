@@ -71,6 +71,33 @@ public class Planet implements IGenericEntity{
 	}
 	
 	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+            return false;
+        }
+
+        if (!Planet.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        
+        Planet planet = (Planet)obj;
+        if(!planet.getName().equals(this.getName()))
+        	return false;
+        
+        if(!planet.getClimate().equals(this.getClimate()))
+        	return false;
+        
+        if(!planet.getTerrain().equals(this.getTerrain()))
+        	return false;
+        
+        if(!planet.getId().equals(this.getId()))
+        	return false;
+        
+		return true;
+		
+	}
+	
+	@Override
 	public String toString() {
 		return String.format(
                 "Planet[id=%s, name='%s', climate='%s', terrain='%s']",

@@ -24,7 +24,7 @@ import br.com.b2w.exceptions.NotCreatedEntityException;
 import br.com.b2w.exceptions.NotFoundEntityException;
 import br.com.b2w.services.interfaces.IGenericService;
 
-public abstract class GenericController<T extends IGenericEntity, S extends IGenericService<T>>{
+public abstract class GenericController<T extends IGenericEntity, S extends IGenericService<T>> implements IGenericController<T>{
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(GenericController.class);
 	
@@ -63,9 +63,11 @@ public abstract class GenericController<T extends IGenericEntity, S extends IGen
 	public ResponseEntity<Void> delete(@PathVariable(value = "id") String id) {
 		T entity = genericService.findById(id);
 		
-		if(entity == null)
+		if(entity == null) {
 			throw new NotFoundEntityException("Entity of id " + id + " was not in database.");
-		else
+		}else {
+			genericService.delete(id);
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
+		}
 	}
 }

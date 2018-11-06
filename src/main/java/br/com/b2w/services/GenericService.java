@@ -6,6 +6,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import br.com.b2w.entities.IGenericEntity;
@@ -20,7 +21,7 @@ public class GenericService<T extends IGenericEntity, R extends GenericRepositor
 	
 	@Override
 	public T create(@Valid T entity) {
-		return starWarsRepository.insert(entity);
+		return starWarsRepository.save(entity);
 	}
 
 	@Override

@@ -13,6 +13,6 @@ import br.com.b2w.entities.Planet;
 @RequestMapping(value="/planets")
 public interface IPlanetController extends IGenericController<Planet>{
 	
-	@GetMapping(value = "/getByName")
-	public ResponseEntity<List<Planet>> getByName(@RequestParam(value = "name") String name);
+	@GetMapping(value = "/findByName")
+	public ResponseEntity<List<Planet>> findByName(@RequestParam(value = "name") String name);
 }

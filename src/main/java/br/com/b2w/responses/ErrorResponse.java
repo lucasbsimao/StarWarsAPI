@@ -1,8 +1,8 @@
-package br.com.b2w.exceptions.response;
+package br.com.b2w.responses;
 
 import java.util.Date;
 
-public class ErrorDetail {
+public class ErrorResponse {
 	private Date timestamp;
 	private Integer status;
 	private String error;
