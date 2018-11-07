@@ -157,12 +157,13 @@ public class PlanetControllerTest {
 		when(planetService.findByName(any(String.class))).thenReturn(listPlanets);
 		
 		MvcResult result = mockMvc
-				.perform(MockMvcRequestBuilders.get(END_POINT + "findByName?name=", planet1.getName())
+				.perform(MockMvcRequestBuilders.get(END_POINT + "name/{name}", planet1.getName())
 				.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andReturn();
 
 		int status = result.getResponse().getStatus();
 		assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
+		
 
 		verify(planetService).findByName(any(String.class));
 

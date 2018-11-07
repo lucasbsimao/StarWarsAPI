@@ -6,6 +6,8 @@ import javax.websocket.server.PathParam;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.b2w.controllers.interfaces.IPlanetController;
@@ -20,8 +22,7 @@ public class PlanetControllerImpl extends GenericControllerImpl<Planet, IPlanetS
 	 * {@inheritDoc}
 	 */
 	@Override
-	//@Async
-	public ResponseEntity<List<Planet>> findByName(@PathParam(value = "name") String name) {
+	public ResponseEntity<List<Planet>> findByName(@PathVariable(value = "name") String name) {
 		List<Planet> listPlanets = genericService.findByName(name);
 		
 		if(listPlanets == null)
