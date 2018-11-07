@@ -1,5 +1,11 @@
-[![Build Status](https://travis-ci.org/lucasbsimao/purchaseapp.svg?branch=master)](https://travis-ci.org/lucasbsimao/StarWarsAPI)
+<div align="center">
 
+![Star Wars](https://github.com/lucasbsimao/StarWarsAPI/blob/master/images/star-wars.jpeg "Star Wars")
+
+</div>
+
+
+[![Build Status](https://travis-ci.org/lucasbsimao/purchaseapp.svg?branch=master)](https://travis-ci.org/lucasbsimao/StarWarsAPI)
 
 # StarWarsAPI
 
@@ -22,6 +28,40 @@ Há também a necessidade que o [SwAPI](https://swapi.co/) esteja online, do con
 
 A documentação padrão da aplicação é fornecida pelo [Swagger](https://swagger.io/). Assim, uma vez que a API estiver online, a documentação estará disponível no endpoint ``` /docApi/swagger-ui.html ```, como é visto abaixo:
 
+<div align="center">
+
 ![Swagger](https://github.com/lucasbsimao/StarWarsAPI/blob/master/images/swagger.png "Swagger")
 
+</div>
 
+O Swagger também permite fazer testes de requisição. Porém outras aplicações também podem ser utilizadas, como o [Postman](https://www.getpostman.com/).
+
+#### 3.1 Lista de funcionalidades
+
+1. Criando um planeta:
+
+Endpoint: /planets/
+
+```JSON
+{
+    "name": "Alderaan",
+    "climate": "temperate",
+    "terrain": "terrain": "grasslands, mountains"
+}
+```
+
+2. Deletando um planeta:
+
+Endpoint: /planets/{id}
+
+3. Listar todos os planetas
+
+Endpoint: /planets/
+
+4. Buscar planeta por id:
+
+Endpoint: /planets/{id}
+
+5. Buscar planeta por nome:
+
+Endpoint: /planets/name/{name}

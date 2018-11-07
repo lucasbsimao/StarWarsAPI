@@ -2,9 +2,10 @@ package br.com.b2w.controllers;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.b2w.controllers.interfaces.IPlanetController;
@@ -20,7 +21,7 @@ public class PlanetControllerImpl extends GenericControllerImpl<Planet, IPlanetS
 	 */
 	@Override
 	//@Async
-	public ResponseEntity<List<Planet>> findByName(@RequestParam(value = "name") String name) {
+	public ResponseEntity<List<Planet>> findByName(@PathParam(value = "name") String name) {
 		List<Planet> listPlanets = genericService.findByName(name);
 		
 		if(listPlanets == null)
