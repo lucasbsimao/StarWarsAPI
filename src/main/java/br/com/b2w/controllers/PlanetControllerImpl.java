@@ -2,12 +2,8 @@ package br.com.b2w.controllers;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +13,11 @@ import br.com.b2w.exceptions.NotFoundEntityException;
 import br.com.b2w.services.interfaces.IPlanetService;
 
 @RestController
-public class PlanetControllerImpl extends GenericController<Planet, IPlanetService> implements IPlanetController{
+public class PlanetControllerImpl extends GenericControllerImpl<Planet, IPlanetService> implements IPlanetController{
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	//@Async
 	public ResponseEntity<List<Planet>> findByName(@RequestParam(value = "name") String name) {

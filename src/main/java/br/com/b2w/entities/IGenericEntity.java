@@ -2,9 +2,6 @@ package br.com.b2w.entities;
 
 import java.io.Serializable;
 
-
-import org.springframework.data.annotation.Id;
-
 /**
  * Base class used for all entities
  * 

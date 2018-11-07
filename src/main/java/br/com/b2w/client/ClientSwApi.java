@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,13 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-
 import br.com.b2w.client.response.ClientResponse;
 import br.com.b2w.entities.Planet;
-import br.com.b2w.utils.CustomPageImpl;
 
 @Service
 public class ClientSwApi{
@@ -36,6 +29,10 @@ public class ClientSwApi{
 	
 	final static String URI = "https://swapi.co/api/planets?page=";
 
+	/**
+	 * Search for the list of planets at <a href="https://swapi.co/">SWApi</a>
+	 * @return A set of all planets that are present in Star Wars universe 
+	 */
 	public List<Planet> getAllPlanets() {
 		List<Planet> listPlanets = new ArrayList<>();
 		ClientResponse clientResponse = null;

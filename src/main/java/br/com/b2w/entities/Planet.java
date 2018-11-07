@@ -49,52 +49,98 @@ public class Planet implements IGenericEntity{
 		this.terrain = terrain;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getId() {
 		return id;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-
+	
+	/**
+	 * Get the Planet name
+	 * @return name that must not be blank
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Set the Planet name
+	 * @param name that must not be blank
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Get the Planet climate
+	 * @return climate that must not be blank
+	 */
 	public String getClimate() {
 		return climate;
 	}
 	
+	/**
+	 * Set the Planet climate
+	 * @param climate that must not be blank
+	 */
 	public void setClimate(String climate) {
 		this.climate = climate;
 	}
 	
+	/**
+	 * Get the Planet terrain
+	 * @return terrain that must not be blank
+	 */
 	public String getTerrain() {
 		return terrain;
 	}
 	
+	/**
+	 * Set the Planet terrain
+	 * @param terrain that must not be blank
+	 */
 	public void setTerrain(String terrain) {
 		this.terrain = terrain;
 	}
 	
+	/**
+	 * Get the Planet appearances in films, deserializable only 
+	 * @return number of appearances
+	 */
 	public Integer getAppearances() {
 		if(appearances == null)
 			return 0;
 		return appearances;
 	}
 
+	/**
+	 * Set the Planet appearances in films, deserializable only 
+	 * @param number of appearances
+	 */
 	public void setAppearances(Integer appearances) {
 		this.appearances = appearances;
 	}
 	
+	/**
+	 * Get a list of movies in which it appeared, serializable only 
+	 * @return String list of movies
+	 */
 	public List<String> getFilms() {
 		return films;
 	}
 
+	/**
+	 * Set a list of movies in which it appeared, serializable only 
+	 * @param String list of movies
+	 */
 	public void setFilms(List<String> films) {
 		this.appearances = films.size();
 		this.films = films;

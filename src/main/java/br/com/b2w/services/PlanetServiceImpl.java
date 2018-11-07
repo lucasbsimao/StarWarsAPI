@@ -15,11 +15,14 @@ import br.com.b2w.repositories.PlanetRepository;
 import br.com.b2w.services.interfaces.IPlanetService;
 
 @Service("planetService")
-public class PlanetServiceImpl extends GenericService<Planet,PlanetRepository> implements IPlanetService{
+public class PlanetServiceImpl extends GenericServiceImpl<Planet,PlanetRepository> implements IPlanetService{
 	
 	@Autowired
 	private ClientSwApi clientSwApi;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Planet create(@Valid Planet entity) {
 		Planet planet = super.create(entity);
@@ -30,6 +33,9 @@ public class PlanetServiceImpl extends GenericService<Planet,PlanetRepository> i
 		return planet;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Planet> getAll() {
 		List<Planet> listPlanets = super.genericRepository.findAll();
@@ -39,6 +45,9 @@ public class PlanetServiceImpl extends GenericService<Planet,PlanetRepository> i
 		return listPlanets;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Planet findById(@NotBlank String id) {
 		Planet planet = genericRepository.findById(id).orElse(null);
@@ -49,6 +58,9 @@ public class PlanetServiceImpl extends GenericService<Planet,PlanetRepository> i
 		return planet;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public List<Planet> findByName(String name) {
 		List<Planet> listPlanets = genericRepository.findByName(name);
