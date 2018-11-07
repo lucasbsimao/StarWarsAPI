@@ -46,7 +46,7 @@ Endpoint: /planets/
 {
     "name": "Alderaan",
     "climate": "temperate",
-    "terrain": "terrain": "grasslands, mountains"
+    "terrain": "grasslands, mountains"
 }
 ```
 
