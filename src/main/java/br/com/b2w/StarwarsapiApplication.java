@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.GenericRepository;
 
 @SpringBootApplication
+//@EnableAsync
 public class StarwarsapiApplication{
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(StarwarsapiApplication.class);

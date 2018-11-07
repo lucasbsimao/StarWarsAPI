@@ -1,8 +1,11 @@
 package br.com.b2w.entities;
 
+import java.util.List;
+
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,6 +30,14 @@ public class Planet implements IGenericEntity{
 	@NotBlank(message = "Planet's terrain must not be null or empty")
 	@JsonProperty(required = true)
 	private String terrain;
+	
+	@Transient
+	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	private Integer appearances;
+	
+	@Transient
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<String> films;
 	
 	public Planet() {
 		super();
@@ -70,6 +81,25 @@ public class Planet implements IGenericEntity{
 		this.terrain = terrain;
 	}
 	
+	public Integer getAppearances() {
+		if(appearances == null)
+			return 0;
+		return appearances;
+	}
+
+	public void setAppearances(Integer appearances) {
+		this.appearances = appearances;
+	}
+	
+	public List<String> getFilms() {
+		return films;
+	}
+
+	public void setFilms(List<String> films) {
+		this.appearances = films.size();
+		this.films = films;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -88,9 +118,6 @@ public class Planet implements IGenericEntity{
         	return false;
         
         if(!planet.getTerrain().equals(this.getTerrain()))
-        	return false;
-        
-        if(!planet.getId().equals(this.getId()))
         	return false;
         
 		return true;

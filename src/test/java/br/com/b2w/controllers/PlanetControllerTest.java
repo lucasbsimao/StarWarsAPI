@@ -50,7 +50,7 @@ import br.com.b2w.utils.TestUtils;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(PlanetControllerImpl.class)
-public class PlanetControllerIntegrationTest {
+public class PlanetControllerTest {
 	
 	@Autowired
 	private MockMvc mockMvc;
@@ -89,7 +89,6 @@ public class PlanetControllerIntegrationTest {
     public void whenRequestCreate_thenReturnPlanetEqualsToObjectTest() throws Exception {
 		Planet planet = new Planet("Alderaan", "temperate", "grasslands, mountains");
 		planet.setId("1");
-
 		when(planetService.create(any(Planet.class))).thenReturn(planet);
 		
         mockMvc.perform(MockMvcRequestBuilders.post(END_POINT)
@@ -106,9 +105,7 @@ public class PlanetControllerIntegrationTest {
 	@Test
     public void givenSetOfPlanets_whenRequestGetAll_thenReturnListEqualToObjectTest() throws Exception {
 		Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
-		planet1.setId("1");
 		Planet planet2 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
-		planet2.setId("2");
 
         List<Planet> listplanets = new ArrayList<>();
         listplanets.addAll(Arrays.asList(planet1, planet2));
@@ -152,9 +149,7 @@ public class PlanetControllerIntegrationTest {
 	@Test
 	public void giverSetOfPlanets_whenRequestGetByName_thenReturnListEqualToObjectTest() throws Exception {
 		Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
-		planet1.setId("1");
 		Planet planet2 = new Planet("Alderaan", "temperate, tropical", "jungle, rainforests");
-		planet2.setId("2");
 
         List<Planet> listPlanets = new ArrayList<>();
         listPlanets.addAll(Arrays.asList(planet1, planet2));

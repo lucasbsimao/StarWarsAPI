@@ -20,6 +20,7 @@ import br.com.b2w.services.interfaces.IPlanetService;
 public class PlanetControllerImpl extends GenericController<Planet, IPlanetService> implements IPlanetController{
 	
 	@Override
+	//@Async
 	public ResponseEntity<List<Planet>> findByName(@RequestParam(value = "name") String name) {
 		List<Planet> listPlanets = genericService.findByName(name);
 		

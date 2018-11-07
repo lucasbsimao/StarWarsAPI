@@ -3,6 +3,7 @@ package br.com.b2w.services;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,15 +23,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.mockito.ArgumentMatchers;
 
+import br.com.b2w.client.ClientSwApi;
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.PlanetRepository;
 import br.com.b2w.services.interfaces.IPlanetService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class PlanetServiceIntegrationTest {
+public class PlanetServiceTest {
 	
 	@Autowired
 	@Qualifier("planetService")
@@ -39,20 +40,21 @@ public class PlanetServiceIntegrationTest {
 	@MockBean
 	private PlanetRepository planetRepository;
 	
+	@MockBean
+	private ClientSwApi clientSwApi;
+	
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 	
 	@Test
     public void givenPlanet_whenSave_thenReturnIdNotNullTest() {
         Planet planet = new Planet("Test", "Test", "Test");
-        Planet planet2 = new Planet("Test", "Test", "Test");
-        planet2.setId("1");
 
-        when(planetRepository.save(planet)).thenReturn(planet2);
+        when(planetRepository.save(any(Planet.class))).thenReturn(planet);
         
         Planet planet3 = planetService.create(planet);
         
-        assertNotNull(planet3.getId());
+        assertThat(planet3.equals(planet));
     }
 	
 	@Test
@@ -113,8 +115,10 @@ public class PlanetServiceIntegrationTest {
     public void givenPlanet_whenFindById_thenReturnPlanetNotNullTest() {
     	Planet planet = new Planet("Test", "Test", "Test");
     	planet.setId("1");
+    	List<Planet> listPlanets = new ArrayList<>();
     	
-    	when(planetRepository.findById(planet.getId())).thenReturn(Optional.of(planet));
+    	when(clientSwApi.getAllPlanets()).thenReturn(listPlanets);
+    	when(planetRepository.findById(any(String.class))).thenReturn(Optional.of(planet));
     	
         Planet result = planetService.findById(planet.getId());
         assertNotNull(result);
@@ -132,9 +136,7 @@ public class PlanetServiceIntegrationTest {
         List<Planet> results = planetService.findByName(planet1.getName());
         
         assertNotNull(results);
-        assertEquals(results.get(0).getName(), planet1.getName());
-        assertEquals(results.get(0).getClimate(), planet1.getClimate());
-        assertEquals(results.get(0).getTerrain(), planet1.getTerrain());
+        assertThat(results.get(0).equals(planet1));
     }
 
     @Test

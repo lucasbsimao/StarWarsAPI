@@ -17,26 +17,26 @@ import br.com.b2w.services.interfaces.IGenericService;
 public class GenericService<T extends IGenericEntity, R extends GenericRepository<T>> implements IGenericService<T>{
 	
 	@Autowired
-	R starWarsRepository;
+	R genericRepository;
 	
 	@Override
 	public T create(@Valid T entity) {
-		return starWarsRepository.save(entity);
+		return genericRepository.save(entity);
 	}
 
 	@Override
 	public void delete(@NotBlank String id) {
-		starWarsRepository.deleteById(id);
+		genericRepository.deleteById(id);
 	}
 	
 	@Override
 	public List<T> getAll() {
-		return starWarsRepository.findAll();
+		return genericRepository.findAll();
 	}
 
 	@Override
 	public T findById(@NotBlank String id) {
-		T entity = starWarsRepository.findById(id).orElse(null);
+		T entity = genericRepository.findById(id).orElse(null);
 		return entity;
 	}
 

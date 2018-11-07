@@ -24,7 +24,7 @@ import br.com.b2w.exceptions.NotCreatedEntityException;
 import br.com.b2w.exceptions.NotFoundEntityException;
 import br.com.b2w.services.interfaces.IGenericService;
 
-public abstract class GenericController<T extends IGenericEntity, S extends IGenericService<T>> implements IGenericController<T>{
+public class GenericController<T extends IGenericEntity, S extends IGenericService<T>> implements IGenericController<T>{
 	
 	protected static final Logger LOGGER = LoggerFactory.getLogger(GenericController.class);
 	
