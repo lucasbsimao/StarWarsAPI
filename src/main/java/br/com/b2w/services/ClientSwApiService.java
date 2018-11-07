@@ -1,4 +1,4 @@
-package br.com.b2w.client;
+package br.com.b2w.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,11 +14,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import br.com.b2w.client.response.ClientResponse;
 import br.com.b2w.entities.Planet;
+import br.com.b2w.responses.ClientResponse;
 
 @Service
-public class ClientSwApi{
+public class ClientSwApiService{
 
 	RestTemplate restTemplate;
 	

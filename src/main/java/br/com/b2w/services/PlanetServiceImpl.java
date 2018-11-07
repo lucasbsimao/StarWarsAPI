@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.b2w.client.ClientSwApi;
 import br.com.b2w.entities.Planet;
 import br.com.b2w.exceptions.NotFoundEntityException;
 import br.com.b2w.repositories.PlanetRepository;
@@ -18,7 +17,7 @@ import br.com.b2w.services.interfaces.IPlanetService;
 public class PlanetServiceImpl extends GenericServiceImpl<Planet,PlanetRepository> implements IPlanetService{
 	
 	@Autowired
-	private ClientSwApi clientSwApi;
+	private ClientSwApiService clientSwApi;
 	
 	/**
 	 * {@inheritDoc}

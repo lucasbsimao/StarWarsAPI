@@ -24,7 +24,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.b2w.client.ClientSwApi;
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.PlanetRepository;
 import br.com.b2w.services.interfaces.IPlanetService;
@@ -41,7 +40,7 @@ public class PlanetServiceTest {
 	private PlanetRepository planetRepository;
 	
 	@MockBean
-	private ClientSwApi clientSwApi;
+	private ClientSwApiService clientSwApi;
 	
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();

@@ -11,12 +11,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.b2w.entities.Planet;
+import br.com.b2w.services.ClientSwApiService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ClientSwTest {
 	@Autowired
-    ClientSwApi rest;
+    ClientSwApiService rest;
     
 	@Test
     public void testa_Retorna_Aparicoes() {

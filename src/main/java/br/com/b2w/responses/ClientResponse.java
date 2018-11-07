@@ -1,4 +1,4 @@
-package br.com.b2w.client.response;
+package br.com.b2w.responses;
 
 import java.util.List;
 
