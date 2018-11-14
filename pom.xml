@@ -5,7 +5,7 @@
 
 	<groupId>br.com.b2w</groupId>
 	<artifactId>starwarsapi</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<name>starwarsapi</name>

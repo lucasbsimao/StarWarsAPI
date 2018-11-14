@@ -142,7 +142,6 @@ public class Planet implements IGenericEntity{
 	 * @param String list of movies
 	 */
 	public void setFilms(List<String> films) {
-		this.appearances = films.size();
 		this.films = films;
 	}
 	

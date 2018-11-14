@@ -75,7 +75,7 @@ public class PlanetServiceImpl extends GenericServiceImpl<Planet,PlanetRepositor
 	private void insertPlanetAppearances(Planet planet,List<Planet> resultListPlanets) {
 		resultListPlanets.forEach(p -> {
 			if(planet.equals(p))
-				planet.setAppearances(p.getAppearances());
+				planet.setAppearances(p.getFilms().size());
 		});
 	}
 	
