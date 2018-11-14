@@ -10,6 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiModelProperty.AccessMode;
+
+import br.com.b2w.entities.IGenericEntity;
+
 
 @Document(collection = "planets")
 public class Planet implements IGenericEntity{
@@ -17,26 +22,32 @@ public class Planet implements IGenericEntity{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@ApiModelProperty(hidden = true)
 	private String id;
 
 	@NotBlank(message = "Planet's name must be not null or empty")
 	@JsonProperty(required = true)
+	@ApiModelProperty(example="Yavin IV")
 	private String name;
 	
 	@NotBlank(message = "Planet's climate must not be null or empty")
 	@JsonProperty(required = true)
+	@ApiModelProperty(example="temperate, tropical")
 	private String climate;
 	
 	@NotBlank(message = "Planet's terrain must not be null or empty")
 	@JsonProperty(required = true)
+	@ApiModelProperty(example="jungle, rainforests")
 	private String terrain;
 	
 	@Transient
 	@JsonProperty(access = JsonProperty.Access.READ_ONLY)
+	@ApiModelProperty(accessMode=AccessMode.READ_ONLY)
 	private Integer appearances;
 	
 	@Transient
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	@ApiModelProperty(hidden = true)
 	private List<String> films;
 	
 	public Planet() {
