@@ -27,7 +27,7 @@ public class ClientSwApiService{
 		restTemplate = new RestTemplate();
 	}
 	
-	final static String URI = "https://swapi.co/api/planets?page=";
+	final static String URI = "https://swapi.co/api/planets/";
 
 	/**
 	 * Search for the list of planets at <a href="https://swapi.co/">SWApi</a>
@@ -36,15 +36,16 @@ public class ClientSwApiService{
 	public List<Planet> getAllPlanets() {
 		List<Planet> listPlanets = new ArrayList<>();
 		ClientResponse clientResponse = null;
-		int page = 1;
+		String dynamicUri = URI;
 		do {
-			ResponseEntity<ClientResponse> result = restTemplate.exchange(URI+page, HttpMethod.GET,createHeader(),ClientResponse.class);
+			ResponseEntity<ClientResponse> result = restTemplate.exchange(dynamicUri, HttpMethod.GET,createHeader(),ClientResponse.class);
 			
 			clientResponse = result.getBody();
 			
 			listPlanets.addAll(clientResponse.getResults());
 			
-			page++;
+			dynamicUri = clientResponse.getNext();
+
 		}while(clientResponse.getNext() != null);
 		
 		return listPlanets;
