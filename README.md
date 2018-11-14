@@ -5,7 +5,7 @@
 </div>
 
 
-[![Build Status](https://travis-ci.org/lucasbsimao/purchaseapp.svg?branch=master)](https://travis-ci.org/lucasbsimao/StarWarsAPI)
+[![Build Status](https://travis-ci.org/lucasbsimao/StarWarsAPI.svg?branch=master)](https://travis-ci.org/lucasbsimao/StarWarsAPI)
 
 # StarWarsAPI
 
