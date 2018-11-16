@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.b2w.entities.IGenericEntity;
 
-public class TestUtils {
+public class TestJsonUtils {
 
-	public static <T> T jsonToList(final TypeReference<T> type, final String jsonPacket) {
+	public static <T> T jsonToList(final TypeReference<T> type, String jsonPacket) {
 		T data = null;
 
 		try {
@@ -30,6 +30,7 @@ public class TestUtils {
 	}
 
 	public static <T extends IGenericEntity> T jsonToObject(String json, Class<T> classOf) throws JsonParseException, JsonMappingException, IOException {
+		json = json.replaceAll("\\[", "").replaceAll("\\]", "");
 		ObjectMapper mapper = new ObjectMapper();
 		T entity = mapper.readValue(json, classOf);
 		return entity;
