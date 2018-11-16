@@ -27,6 +27,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.PlanetRepository;
 import br.com.b2w.services.interfaces.IPlanetService;
+import br.com.b2w.utils.TestPlanetUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -47,7 +48,7 @@ public class PlanetServiceTest {
 	
 	@Test
     public void givenPlanet_whenSave_thenReturnIdNotNullTest() {
-        Planet planet = new Planet("Test", "Test", "Test");
+        Planet planet = TestPlanetUtils.createTestPlanet(true);
 
         when(planetRepository.save(any(Planet.class))).thenReturn(planet);
         
@@ -112,8 +113,7 @@ public class PlanetServiceTest {
     
     @Test
     public void givenPlanet_whenFindById_thenReturnPlanetNotNullTest() {
-    	Planet planet = new Planet("Test", "Test", "Test");
-    	planet.setId("1");
+    	Planet planet = TestPlanetUtils.createTestPlanet(true);
     	List<Planet> listPlanets = new ArrayList<>();
     	
     	when(clientSwApi.getAllPlanets()).thenReturn(listPlanets);
@@ -125,7 +125,7 @@ public class PlanetServiceTest {
     
     @Test
     public void givenPlanet_whenFindByName_thenReturnPlanetNotNullAndNameEqualsObjectTest() {
-    	Planet planet1 = new Planet("Test", "Test", "Test");
+    	Planet planet1 = TestPlanetUtils.createTestPlanet(true);
     	
     	List<Planet> listaPlanetas = new ArrayList<>();
     	listaPlanetas.add(planet1);
@@ -140,20 +140,17 @@ public class PlanetServiceTest {
 
     @Test
     public void givenListOfPlanets_whenGetAll_thenReturnNotEmptyListTest() {
-    	Planet planet3 = new Planet("Alderaan", "temperate", "grasslands");
-    	planet3.setId("1");
-    	Planet planet4 = new Planet("Yavin IV", "temperate, tropical", "jungle, rainforests");
-    	planet4.setId("2");
+    	List<Planet> initPlanets = TestPlanetUtils.createPlanets(2,true);
     	
     	List<Planet> listPlanets = new ArrayList<>();
-    	listPlanets.add(planet3);
-    	listPlanets.add(planet4);
+    	listPlanets.add(initPlanets.get(0));
+    	listPlanets.add(initPlanets.get(1));
     	
     	when(planetRepository.findAll()).thenReturn(listPlanets);
         
 		List<Planet> allPlanets = planetService.getAll();
 		assertThat(allPlanets).hasSize(2);
-        assertThat(allPlanets.get(0).equals(planet3));
-        assertThat(allPlanets.get(1).equals(planet4));
+        assertThat(allPlanets.get(0).equals(initPlanets.get(0)));
+        assertThat(allPlanets.get(1).equals(initPlanets.get(1)));
     }
 }

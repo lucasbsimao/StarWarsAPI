@@ -5,13 +5,9 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
-
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.b2w.entities.Planet;
 import br.com.b2w.repositories.PlanetRepository;
+import br.com.b2w.utils.TestPlanetUtils;
 
 @RunWith(SpringRunner.class)
 @DataMongoTest
@@ -39,7 +36,7 @@ public class PlanetRepositoryTest {
 	
 	@Test
     public void whenFindByName_thenReturnPlanetTest() {
-		Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
+		Planet planet1 = TestPlanetUtils.createPlanet(false);
 		planetRepository.save(planet1);
 
         List<Planet> results = planetRepository.findByName(planet1.getName());
@@ -57,18 +54,16 @@ public class PlanetRepositoryTest {
 
     @Test
     public void whenFindById_thenReturnPlanetWithSamePropertiesTest() {
-    	Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
+    	Planet planet1 = TestPlanetUtils.createPlanet(true);
     	planet1 = planetRepository.save(planet1);
 
         Planet planet2 = planetRepository.findById(planet1.getId()).orElse(null);
-        assertEquals(planet2.getName(),planet1.getName());
-        assertEquals(planet2.getClimate(),planet1.getClimate());
-        assertEquals(planet2.getTerrain(),planet1.getTerrain());
+        assertThat(planet2.equals(planet1));
     }
     
     @Test
     public void whenSavePlanet_thenReturnPlanetWithIdTest() {
-    	Planet planet1 = new Planet("Alderaan", "temperate", "grasslands, mountains");
+    	Planet planet1 = TestPlanetUtils.createPlanet(true);
     	planet1 = planetRepository.save(planet1);
 
         assertNotNull(planet1.getId());
