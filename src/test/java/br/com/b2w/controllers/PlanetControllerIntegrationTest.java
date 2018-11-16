@@ -76,8 +76,6 @@ public class PlanetControllerIntegrationTest {
 		int status = result.getStatusCode().value();
 		assertEquals("Incorrect Response Status", HttpStatus.OK.value(), status);
 		
-//		System.out.println("TEste: "+ result.getBody().toString());
-		
 		Planet resultPlanet = TestJsonUtils.jsonToObject(result.getBody().toString(), Planet.class);
 		assertThat(resultPlanet.equals(planet));
 		assertThat(resultPlanet.getId().equals(planet.getId()));
